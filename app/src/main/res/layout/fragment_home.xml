@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/teal_700"
-    tools:context=".HomeFragment">
+    tools:context=".View.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -15,10 +15,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="96dp"
         android:layout_marginEnd="285dp"
         android:text="Daily Inspiration"
         android:textColor="@color/white"
+        android:textColorHighlight="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,30 +49,41 @@
         android:layout_marginStart="72dp"
         android:layout_marginEnd="98dp"
         android:layout_marginBottom="23dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        android:isIndicator="true"
+        app:layout_constraintBottom_toTopOf="@+id/tvMealName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvMealName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="72dp"
         android:layout_marginEnd="272dp"
+        android:layout_marginBottom="40dp"
         android:text="TextView"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btnFav1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="487dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnFav1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="158dp"
-        tools:layout_editor_absoluteY="567dp" />
+        android:layout_marginStart="158dp"
+        android:layout_marginEnd="159dp"
+        android:layout_marginBottom="48dp"
+        android:backgroundTint="@color/white"
+        android:drawableLeft="@drawable/baseline_favorite_border_24"
+        android:fontFamily="sans-serif-thin"
+        android:text="@string/Favourate"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,4 +5,8 @@
     <string name="for_you">For You</string>
     <string name="search">Search</string>
     <string name="favourate">Favourate</string>
+    <string name="Favourate">Favourate</string>
+    <string name="Category">Category</string>
+    <string name="Country">Country</string>
+    <string name="Ingredients">Ingredients</string>
 </resources>

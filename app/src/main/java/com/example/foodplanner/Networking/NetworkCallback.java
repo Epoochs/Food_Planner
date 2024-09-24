@@ -1,11 +1,11 @@
 package com.example.foodplanner.Networking;
 
-import com.example.roommvp.Model.Products;
+import com.example.foodplanner.Model.Meals;
 
 import java.util.List;
 
 public interface NetworkCallback {
-    public void onSuccessResult(List<Products> movies);
+    void onSuccessResult(List<Meals> mealsList);
 
-    public void onFalureResult(String str);
+    void onFalureResult(String str);
 }
