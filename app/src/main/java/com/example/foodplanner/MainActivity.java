@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.foodplanner.View.FavourateFragment;
+import com.example.foodplanner.View.Favourate.FavourateFragment;
 import com.example.foodplanner.View.HomeFragment;
 import com.example.foodplanner.View.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     HomeFragment homeFragment;
     SearchFragment searchFragment;
+    FavourateFragment favourateFragment;
     FragmentTransaction fragmentTransaction;
     FragmentManager fragmentManager;
     BottomNavigationView bottomNavigationView;
@@ -36,31 +37,31 @@ public class MainActivity extends AppCompatActivity {
         init();
 
         /* BottomBar Navigation Handler through Fragments */
-     /*   bottomNavigationView.setOnItemSelectedListener(item -> {
+        bottomNavigationView.setOnItemSelectedListener(item -> {
 
             int itemID = item.getItemId();
 
             if(R.id.navigation_home == itemID){
-                replaceFragment(new HomeFragment());
+                replaceFragment(homeFragment == null ? homeFragment = new HomeFragment() : homeFragment);
             }else{
                 if(R.id.navigation_search == itemID){
-                    replaceFragment(new SearchFragment());
+                    replaceFragment(searchFragment == null ? searchFragment = new SearchFragment() : searchFragment);
                 }else{
                     if(R.id.navigation_favorite == itemID){
-                        replaceFragment(new FavourateFragment());
+                        replaceFragment(favourateFragment == null ? favourateFragment = new FavourateFragment() : favourateFragment);
                     }
                 }
             }
             return true;
-        });*/
+        });
 
-        replaceFragment(new HomeFragment());
+        replaceFragment(homeFragment == null ? homeFragment = new HomeFragment() : homeFragment);
     }
 
     private void replaceFragment(Fragment fragment){
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainerView,fragment);
+        fragmentTransaction.replace(R.id.fragmentContainerView,fragment).setReorderingAllowed(true);
         fragmentTransaction.commit();
     }
     private void init(){

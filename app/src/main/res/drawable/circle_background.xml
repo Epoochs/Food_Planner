@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/colorControlHighlight">
+
+    <!-- Default background of the button -->
+    <item>
+        <shape>
+            <solid android:color="#B3B0B0B0"/> <!-- Gray with 50% transparency -->
+            <corners android:radius="500dp" />
+        </shape>
+    </item>
+</ripple>

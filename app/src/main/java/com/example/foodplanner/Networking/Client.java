@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import java.util.Date;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -15,10 +17,13 @@ public class Client {
     private MealInterface mealInterface;
     private static Client client = null;
     Retrofit retrofit;
+    Date date;
 
     public Client() {
         retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(BASE_URL).build();
         mealInterface = retrofit.create(MealInterface.class);
+        date = new Date();
+        date.getTime();
     }
 
     public static Client getInstance() {
@@ -28,7 +33,7 @@ public class Client {
         return client;
     }
 
-    public void makeNetworkCallback(NetworkCallback networkCallback) {
+    public void makeNetworkCallbackRandom(NetworkCallback networkCallback) {
         Call<MealResponse> call = mealInterface.getRandomMeal();
         System.out.println("CallBack");
         call.enqueue(new Callback<MealResponse>() {

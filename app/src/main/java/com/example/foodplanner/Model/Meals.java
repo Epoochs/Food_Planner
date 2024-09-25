@@ -1,6 +1,12 @@
 package com.example.foodplanner.Model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "meals_table")
 public class Meals {
+    @PrimaryKey
+    private int idMeal;
     private String strMeal;
     private String strInstructions;
     private String strMealThumb;
@@ -26,6 +32,7 @@ public class Meals {
     public String getStrCategory() {
         return strCategory;
     }
+    public int getIdMeal(){ return idMeal; }
 
     /* Setters */
     public void setStrMeal(String strMeal) {
@@ -40,4 +47,5 @@ public class Meals {
     public void setStrCategory(String strCategory) {
         this.strCategory = strCategory;
     }
+    public void setIdMeal(int idMeal) { this.idMeal = idMeal; }
 }
