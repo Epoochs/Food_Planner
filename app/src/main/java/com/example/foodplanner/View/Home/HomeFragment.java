@@ -1,15 +1,16 @@
-package com.example.foodplanner.View;
+package com.example.foodplanner.View.Home;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,19 +21,23 @@ import com.example.foodplanner.Presenter.Home.HomePresenter;
 import com.example.foodplanner.Presenter.Home.HomeView;
 import com.example.foodplanner.R;
 import com.example.foodplanner.View.Favourate.FavourateFragment;
+import com.example.foodplanner.View.Home.Adapters.MyInspirationAdapter;
+import com.example.foodplanner.View.Home.Adapters.OnFavClickListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment implements HomeView, FavourateFragment.FavButtonState {
+public class HomeFragment extends Fragment implements HomeView, OnFavClickListener {
 
-    ImageButton imageButton;
     View view;
-    ImageView imageView;
-    TextView tvName;
-    boolean btnFavState = false;
+
     HomePresenter homePresenter;
-    Meals meal;
+
+    RecyclerView recyclerViewMealInsp;
+    MyInspirationAdapter myInspirationAdapter;
+    LinearLayoutManager insplayoutManager;
+    boolean btnFavState;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,28 +58,19 @@ public class HomeFragment extends Fragment implements HomeView, FavourateFragmen
         /* Init UI */
         init();
 
-        /* Setting the previous state of the button */
-        imageButton.setSelected(btnFavState);
+        /* Recycle preparation of Meal Inspiration */
+        insplayoutManager = new LinearLayoutManager(requireContext());
+        insplayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        recyclerViewMealInsp.setLayoutManager(insplayoutManager);
+        System.out.println(btnFavState);
+        myInspirationAdapter = new MyInspirationAdapter(requireContext(), new ArrayList<Meals>(), this, btnFavState);
+        recyclerViewMealInsp.setAdapter(myInspirationAdapter);
+
 
         /* Init a Presenter that would be the middleman between View and Model
         * We made it only one instance so that we can keep the last picked-up random meal through
         * the Application */
-        homePresenter = HomePresenter.getHomeInstance(requireContext(),this);
-
-        /* Handling the clicks on ImageButton */
-        imageButton.setOnClickListener(v -> {
-
-            /* Changing the state of button */
-            btnFavState = !btnFavState;
-            imageButton.setSelected(btnFavState);
-
-            /* Adding or Removing the meal into/from the database based on the state of imageButton */
-            if(btnFavState) {
-                homePresenter.addMeal(meal);
-            }else{
-                homePresenter.removeMeal(meal);
-            }
-        });
+       homePresenter = HomePresenter.getHomeInstance(requireContext(),this);
     }
 
     @Override
@@ -91,25 +87,23 @@ public class HomeFragment extends Fragment implements HomeView, FavourateFragmen
 
     private void init(){
         if (view != null) {
-            imageButton = view.findViewById(R.id.imgBtnUnFav);
-            imageView = view.findViewById(R.id.imgy);
-            tvName = view.findViewById(R.id.tvNamy);
+            recyclerViewMealInsp = view.findViewById(R.id.MealInspirationRecycleView);
         }
     }
 
     @Override
     public void showData(List<Meals> meals) {
-        meal = meals.get(0);
-        tvName.setText(meal.getStrMeal());
-        Glide.with(this).load(meal
-                .getStrMealThumb())
-                .apply(new RequestOptions().override(200,200))
-                .placeholder(R.drawable.baseline_downloading_24)
-                .error(R.drawable.baseline_downloading_24).into(imageView);
+        myInspirationAdapter.setList(meals);
     }
 
     @Override
-    public void favState(boolean favState) {
+    public void onFavClick(Meals meals, boolean btnFavState) {
+        homePresenter.addMeal(meals);
+        this.btnFavState = btnFavState;
+    }
 
+    @Override
+    public void onUnFavClick(Meals meals){
+        homePresenter.removeMeal(meals);
     }
 }

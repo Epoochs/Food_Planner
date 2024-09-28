@@ -15,7 +15,7 @@ public interface MealInterface {
     @GET("list.php?a=list")
     Call<MealResponse> getByCountry();
 
-    @GET("list.php?c=list")
+    @GET("categories.php")
     Call<MealResponse> getByCategory();
 
     @GET("list.php")

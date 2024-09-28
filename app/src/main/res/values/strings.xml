@@ -9,4 +9,11 @@
     <string name="Category">Category</string>
     <string name="Country">Country</string>
     <string name="Ingredients">Ingredients</string>
+    <string name="meals_by_category">Meals by Category</string>
+    <string name="meals_by_country">Meals by Country</string>
+    <string name="meals_by_ingredients">Meals by Ingredients</string>
+    <string name="meal_inspiration">Meal Inspiration</string>
+    <string name="textview">TextView</string>
+    <string name="UnFavourate_Button">UnFavourate Button</string>
+    <string name="todo">TODO</string>
 </resources>

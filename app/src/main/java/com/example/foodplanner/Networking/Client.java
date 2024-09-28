@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.foodplanner.Model.Meals;
+
 import java.util.Date;
 
 import retrofit2.Call;
@@ -35,7 +37,43 @@ public class Client {
 
     public void makeNetworkCallbackRandom(NetworkCallback networkCallback) {
         Call<MealResponse> call = mealInterface.getRandomMeal();
-        System.out.println("CallBack");
+        call.enqueue(new Callback<MealResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<MealResponse> call, @NonNull Response<MealResponse> response) {
+                System.out.println("----------------------------Response----------------------------------");
+                networkCallback.onSuccessResult(response.body().getMealsList());
+                Log.i("AllProduct", "OnResponse: CallBack " + response.raw() + response.body());
+            }
+
+            @Override
+            public void onFailure(Call<MealResponse> call, Throwable throwable) {
+                networkCallback.onFalureResult("Fail");
+                Log.e("API Error", "Failed to fetch meal", throwable);
+            }
+        });
+
+    }
+
+    public void makeNetworkCallbackByCategory(NetworkCallback networkCallback){
+        Call<MealResponse> call = mealInterface.getByCategory();
+        call.enqueue(new Callback<MealResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<MealResponse> call, @NonNull Response<MealResponse> response) {
+                System.out.println("Response");
+                networkCallback.onSuccessResultCat(response.body().getCategories());
+                Log.i("AllProduct", "OnResponse: CallBack " + response.raw() + response.body());
+            }
+
+            @Override
+            public void onFailure(Call<MealResponse> call, Throwable throwable) {
+                networkCallback.onFalureResult("Fail");
+                Log.e("API Error", "Failed to fetch meal", throwable);
+            }
+        });
+    }
+
+    public void makeNetworkCallbackByCategoryInDetails(NetworkCallback networkCallback , Meals meals){
+        Call<MealResponse> call = mealInterface.getByFilteredCategory(meals.getStrCategory());
         call.enqueue(new Callback<MealResponse>() {
             @Override
             public void onResponse(@NonNull Call<MealResponse> call, @NonNull Response<MealResponse> response) {
@@ -50,6 +88,5 @@ public class Client {
                 Log.e("API Error", "Failed to fetch meal", throwable);
             }
         });
-
     }
 }

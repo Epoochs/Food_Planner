@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,15 +23,17 @@ import com.example.foodplanner.Model.Repository;
 import com.example.foodplanner.Presenter.Favourate.FavPresenter;
 import com.example.foodplanner.Presenter.Favourate.FavView;
 import com.example.foodplanner.R;
+import com.example.foodplanner.View.Category.CatGridAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavourateFragment extends Fragment implements FavView, OnFavClickListener {
+public class FavourateFragment extends Fragment implements FavView, OnUnFavClickListener {
 
-    GridView gridView;
+    RecyclerView favRecycleView;
+    GridLayoutManager gridLayoutManager;
+    FavGridAdapter favGridAdapter;
     FavPresenter favPresenter;
-    private FavButtonState favButtonState;
 
     public interface FavButtonState{
         void favState(boolean favState);
@@ -46,10 +50,12 @@ public class FavourateFragment extends Fragment implements FavView, OnFavClickLi
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        gridView = view.findViewById(R.id.FavGrifView);
+        favRecycleView = view.findViewById(R.id.FavRecycleView);
 
-        FavGridAdapter favGridAdapter = new FavGridAdapter(requireContext(),new ArrayList<Meals>(),this);
-        gridView.setAdapter(favGridAdapter);
+        gridLayoutManager = new GridLayoutManager(requireContext(),2);
+        favGridAdapter = new FavGridAdapter(requireContext(),new ArrayList<>(),this);
+        favRecycleView.setLayoutManager(gridLayoutManager);
+        favRecycleView.setAdapter(favGridAdapter);
 
         favPresenter = new FavPresenter(requireContext(), this);
 

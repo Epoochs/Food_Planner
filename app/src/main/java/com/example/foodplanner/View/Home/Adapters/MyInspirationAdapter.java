@@ -1,41 +1,44 @@
-package com.example.foodplanner.View.Favourate;
+package com.example.foodplanner.View.Home.Adapters;
 
+import android.accessibilityservice.AccessibilityService;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.foodplanner.Model.Categories;
 import com.example.foodplanner.Model.Meals;
 import com.example.foodplanner.R;
-import com.example.foodplanner.View.Home.Adapters.MyInspirationAdapter;
+import com.example.foodplanner.View.Category.CatGridAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavGridAdapter extends RecyclerView.Adapter<FavGridAdapter.ViewHolder> {
+public class MyInspirationAdapter extends RecyclerView.Adapter<MyInspirationAdapter.ViewHolder> {
 
     ArrayList<Meals> meals;
     Context context;
-    boolean btnFavState = false;
-    OnUnFavClickListener onUnFavClickListener;
+    boolean btnFavState;
+    OnFavClickListener onFavClickListener;
 
-    public FavGridAdapter(Context context, List list, OnUnFavClickListener onUnFavClickListener){
-        if(list != null){
-            meals = (ArrayList<Meals>) list;
+    public MyInspirationAdapter(Context context, List<Meals> meals, OnFavClickListener onFavClickListener, boolean btnFavState){
+        if(meals != null){
+            this.meals = (ArrayList<Meals>) meals;
         }else{
-            meals = new ArrayList<>();
+            this.meals = new ArrayList<>();
         }
         this.context = context;
-        this.onUnFavClickListener = onUnFavClickListener;
+        this.onFavClickListener = onFavClickListener;
+        this.btnFavState = btnFavState;
     }
 
 
@@ -44,15 +47,14 @@ public class FavGridAdapter extends RecyclerView.Adapter<FavGridAdapter.ViewHold
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ViewHolder viewholder;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View convertView = inflater.inflate(R.layout.fav_row, parent, false);
+        View convertView = inflater.inflate(R.layout.meal_inspiration_row, parent, false);
 
         viewholder = new ViewHolder(convertView);
-
         return viewholder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyInspirationAdapter.ViewHolder holder, int position) {
         holder.textView.setText(meals.get(position).getStrCategory());
         Glide.with(this.context)
                 .load(meals.get(position).getStrMealThumb())
@@ -63,11 +65,14 @@ public class FavGridAdapter extends RecyclerView.Adapter<FavGridAdapter.ViewHold
 
         /* Handling the clicks on ImageButton */
         holder.imageButton.setOnClickListener(v -> {
+
             btnFavState = !btnFavState;
             holder.imageButton.setSelected(btnFavState);
 
-            /* Request to Activity for Removing the meal from the database */
-            onUnFavClickListener.onUnFavClick(meals.get(position));
+            if(btnFavState)
+                onFavClickListener.onFavClick(meals.get(position), btnFavState);
+            else
+                onFavClickListener.onUnFavClick(meals.get(position));
         });
     }
 
@@ -76,30 +81,23 @@ public class FavGridAdapter extends RecyclerView.Adapter<FavGridAdapter.ViewHold
         return meals.size();
     }
 
-    public void setList(List<Meals> mealsList){
-        this.meals.clear();
-        this.meals.addAll(mealsList);
-        notifyDataSetChanged();
-    }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView textView;
         ImageButton imageButton;
-        View convertView;
 
-        public ViewHolder(View convertView){
-            super(convertView);
-            this.convertView = convertView;
-
-            imageView = convertView.findViewById(R.id.imgFavMeal);
-            textView = convertView.findViewById(R.id.tvFavMealName);
-            imageButton = convertView.findViewById(R.id.imgBtnFav);
-            imageButton.setSelected(false);
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imageView = itemView.findViewById(R.id.imageView2);
+            textView = itemView.findViewById(R.id.tvMealName1);
+            imageButton = itemView.findViewById(R.id.imgBtnFav);
+            imageButton.setSelected(btnFavState);
         }
+    }
 
-        public ImageButton getImageButton(){
-            return imageButton;
-        }
+    public void setList(List<Meals> mealsList){
+        this.meals.clear();
+        this.meals.addAll(mealsList);
+        notifyDataSetChanged();
     }
 }

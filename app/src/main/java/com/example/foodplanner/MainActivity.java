@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.foodplanner.View.Favourate.FavourateFragment;
-import com.example.foodplanner.View.HomeFragment;
+import com.example.foodplanner.View.Home.HomeFragment;
 import com.example.foodplanner.View.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

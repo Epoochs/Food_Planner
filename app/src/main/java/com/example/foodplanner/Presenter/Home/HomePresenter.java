@@ -3,6 +3,7 @@ package com.example.foodplanner.Presenter.Home;
 import android.app.AlertDialog;
 import android.content.Context;
 
+import com.example.foodplanner.Model.Categories;
 import com.example.foodplanner.Model.Meals;
 import com.example.foodplanner.Model.Repository;
 import com.example.foodplanner.Networking.Client;
@@ -46,7 +47,16 @@ public class HomePresenter implements NetworkCallback {
     @Override
     public void onSuccessResult(List<Meals> mealsList) {
         meals = mealsList;
-        homeView.showData(mealsList);
+        if(meals != null)
+            homeView.showData(mealsList);
+        else{
+            System.out.println("Meals are null -> OnSuccessResult");
+        }
+    }
+
+    @Override
+    public void onSuccessResultCat(List<Categories> categoriesList) {
+
     }
 
     @Override

@@ -15,6 +15,15 @@
         android:theme="@style/Theme.FoodPlanner"
         tools:targetApi="31">
         <activity
+            android:name=".View.Country.CountryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".View.Category.Filtered_Category"
+            android:exported="false" />
+        <activity
+            android:name=".View.Category.CategoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
