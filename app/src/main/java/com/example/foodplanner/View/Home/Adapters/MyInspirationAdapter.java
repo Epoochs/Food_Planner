@@ -1,13 +1,17 @@
 package com.example.foodplanner.View.Home.Adapters;
 
 import android.accessibilityservice.AccessibilityService;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -19,6 +23,7 @@ import com.example.foodplanner.Model.Categories;
 import com.example.foodplanner.Model.Meals;
 import com.example.foodplanner.R;
 import com.example.foodplanner.View.Category.CatGridAdapter;
+import com.example.foodplanner.View.Home.DetailedHomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,9 +58,10 @@ public class MyInspirationAdapter extends RecyclerView.Adapter<MyInspirationAdap
         return viewholder;
     }
 
+    @SuppressLint("RecyclerView")
     @Override
     public void onBindViewHolder(@NonNull MyInspirationAdapter.ViewHolder holder, int position) {
-        holder.textView.setText(meals.get(position).getStrCategory());
+        holder.textView.setText(meals.get(position).getStrMeal());
         Glide.with(this.context)
                 .load(meals.get(position).getStrMealThumb())
                 .apply(new RequestOptions().override(200,200))
@@ -74,6 +80,20 @@ public class MyInspirationAdapter extends RecyclerView.Adapter<MyInspirationAdap
             else
                 onFavClickListener.onUnFavClick(meals.get(position));
         });
+
+        /* Item listener */
+        holder.convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context,meals.get(position).getStrMeal(),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, DetailedHomeActivity.class);
+                intent.putExtra("MealName",meals.get(position).getStrMeal());
+
+                if (context instanceof Activity) {
+                    ((Activity) context).startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override
@@ -85,9 +105,11 @@ public class MyInspirationAdapter extends RecyclerView.Adapter<MyInspirationAdap
         ImageView imageView;
         TextView textView;
         ImageButton imageButton;
+        View convertView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            this.convertView = itemView;
             imageView = itemView.findViewById(R.id.imageView2);
             textView = itemView.findViewById(R.id.tvMealName1);
             imageButton = itemView.findViewById(R.id.imgBtnFav);

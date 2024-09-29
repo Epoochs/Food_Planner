@@ -31,6 +31,7 @@
             android:fontFamily="sans-serif-black"
             android:text="@string/meal_inspiration"
             android:textAlignment="viewStart"
+            android:textColor="@color/black"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,10 +40,13 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/MealInspirationRecycleView"
             android:layout_width="233dp"
-            android:layout_height="174dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:focusable="auto"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/rec_ripple_effect"
             app:layout_constraintTop_toBottomOf="@+id/tvMealInspiration" />
 
         <TextView
@@ -54,6 +58,7 @@
             android:fontFamily="sans-serif-black"
             android:text="@string/meals_by_category"
             android:textAlignment="viewStart"
+            android:textColor="@color/black"
             android:textSize="19sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -76,6 +81,7 @@
             android:layout_marginTop="48dp"
             android:fontFamily="sans-serif-black"
             android:text="@string/meals_by_country"
+            android:textColor="@color/black"
             android:textSize="19sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -98,6 +104,7 @@
             android:layout_marginTop="48dp"
             android:fontFamily="sans-serif-black"
             android:text="@string/meals_by_ingredients"
+            android:textColor="@color/black"
             android:textSize="19sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"

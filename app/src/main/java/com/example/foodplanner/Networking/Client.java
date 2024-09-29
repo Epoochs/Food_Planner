@@ -14,6 +14,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/* Meal Remote Data Storage */
 public class Client {
     private static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
     private MealInterface mealInterface;
@@ -54,7 +55,7 @@ public class Client {
 
     }
 
-    public void makeNetworkCallbackByCategory(NetworkCallback networkCallback){
+    public void makeNetworkCallbackByCategory(NetworkCallback networkCallback) {
         Call<MealResponse> call = mealInterface.getByCategory();
         call.enqueue(new Callback<MealResponse>() {
             @Override
@@ -72,7 +73,25 @@ public class Client {
         });
     }
 
-    public void makeNetworkCallbackByCategoryInDetails(NetworkCallback networkCallback , Meals meals){
+    public void makeNetworkCallbackByName(NetworkCallback networkCallback, String name) {
+        Call<MealResponse> call = mealInterface.getByName(name);
+        call.enqueue(new Callback<MealResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<MealResponse> call, @NonNull Response<MealResponse> response) {
+                System.out.println("Response");
+                networkCallback.onSuccessResultName(response.body().getMealsList());
+                Log.i("AllProduct", "OnResponse: CallBack " + response.raw() + response.body());
+            }
+
+            @Override
+            public void onFailure(Call<MealResponse> call, Throwable throwable) {
+                networkCallback.onFalureResult("Fail");
+                Log.e("API Error", "Failed to fetch meal", throwable);
+            }
+        });
+    }
+
+    public void makeNetworkCallbackByCategoryInDetails(NetworkCallback networkCallback, Meals meals) {
         Call<MealResponse> call = mealInterface.getByFilteredCategory(meals.getStrCategory());
         call.enqueue(new Callback<MealResponse>() {
             @Override

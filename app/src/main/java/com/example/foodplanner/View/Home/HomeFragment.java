@@ -71,6 +71,7 @@ public class HomeFragment extends Fragment implements HomeView, OnFavClickListen
         * We made it only one instance so that we can keep the last picked-up random meal through
         * the Application */
        homePresenter = HomePresenter.getHomeInstance(requireContext(),this);
+
     }
 
     @Override

@@ -13,7 +13,7 @@ import java.util.List;
 
 @Dao
 public interface MealDAO {
-    @Query("SELECT * FROM meals_table")
+    @Query("SELECT * FROM favorites")
     //List<Products> getAllProducts();
     LiveData<List<Meals>> getAllMeals();
 

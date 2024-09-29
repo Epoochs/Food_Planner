@@ -8,6 +8,7 @@ import java.util.List;
 public interface NetworkCallback {
     void onSuccessResult(List<Meals> mealsList);
     void onSuccessResultCat(List<Categories> categoriesList);
+    void onSuccessResultName(List<Meals> mealsList);
 
     void onFalureResult(String str);
 }

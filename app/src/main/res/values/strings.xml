@@ -16,4 +16,10 @@
     <string name="textview">TextView</string>
     <string name="UnFavourate_Button">UnFavourate Button</string>
     <string name="todo">TODO</string>
+    <string name="Add_to_Calendar">Add to Calendar</string>
+    <string name="favourate_action_button">Favourate action button</string>
+    <string name="meal_country">Meal Country</string>
+    <string name="meal_name">Meal Name</string>
+    <string name="mealview">MealView</string>
+    <string name="textviewSteps">TextViewSteps</string>
 </resources>

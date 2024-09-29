@@ -9,6 +9,7 @@ import com.example.foodplanner.DB.MealsDatabase;
 
 import java.util.List;
 
+/* Local Data Storage */
 public class Repository {
     private static Repository repository = null;
     private LiveData<List<Meals>> mealsList;

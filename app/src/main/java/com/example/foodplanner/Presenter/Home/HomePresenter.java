@@ -60,6 +60,11 @@ public class HomePresenter implements NetworkCallback {
     }
 
     @Override
+    public void onSuccessResultName(List<Meals> mealsList) {
+
+    }
+
+    @Override
     public void onFalureResult(String str) {
         /* Showing an alert Message as an Indication of Connection Problem */
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

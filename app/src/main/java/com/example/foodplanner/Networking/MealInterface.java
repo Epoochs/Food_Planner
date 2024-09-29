@@ -18,6 +18,9 @@ public interface MealInterface {
     @GET("categories.php")
     Call<MealResponse> getByCategory();
 
+    @GET("search.php")
+    Call<MealResponse> getByName(@Query("s") String name);
+
     @GET("list.php")
     Call<MealResponse> getByFilteredIngredients(@Query("i") String ingredients);
 
