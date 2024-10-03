@@ -1,0 +1,11 @@
+<!-- In res/drawable/ripple_search_background.xml -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/colorControlHighlight"> <!-- Use the theme's color for the ripple effect -->
+
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp" /> <!-- Adjust radius for rounded corners -->
+            <solid android:color="#E0E0E0" /> <!-- Background color -->
+        </shape>
+    </item>
+</ripple>

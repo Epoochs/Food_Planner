@@ -1,6 +1,7 @@
 package com.example.foodplanner.Networking;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -91,13 +92,110 @@ public class Client {
         });
     }
 
-    public void makeNetworkCallbackByCategoryInDetails(NetworkCallback networkCallback, Meals meals) {
-        Call<MealResponse> call = mealInterface.getByFilteredCategory(meals.getStrCategory());
+    public void makeNetworkCallbackByCategoryInDetails(NetworkCallback networkCallback, String category) {
+        Call<MealResponse> call = mealInterface.getByFilteredCategory(category);
+        call.enqueue(new Callback<MealResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<MealResponse> call, @NonNull Response<MealResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    if (response.body().getMealsList() != null) {
+                        System.out.println("Response");
+                        networkCallback.onSuccessResultFilterCat(response.body().getMealsList());
+                        System.out.println(response.body().getMealsList().get(0).getStrMeal());
+                        Log.i("AllProduct", "OnResponse: CallBack " + response.raw() + response.body());
+                    }else{
+                        System.out.println(category + "is not found");
+                        networkCallback.onNotFound(category);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MealResponse> call, Throwable throwable) {
+                networkCallback.onFalureResult("Fail");
+                Log.e("API Error", "Failed to fetch meal", throwable);
+            }
+        });
+    }
+
+    public void makeNetworkCallbackByCountry(NetworkCallback networkCallback) {
+        Call<MealResponse> call = mealInterface.getByCountry();
         call.enqueue(new Callback<MealResponse>() {
             @Override
             public void onResponse(@NonNull Call<MealResponse> call, @NonNull Response<MealResponse> response) {
                 System.out.println("Response");
-                networkCallback.onSuccessResult(response.body().getMealsList());
+                networkCallback.onSuccessResultCount(response.body().getMealsList());
+                Log.i("AllProduct", "OnResponse: CallBack " + response.raw() + response.body());
+            }
+
+            @Override
+            public void onFailure(Call<MealResponse> call, Throwable throwable) {
+                networkCallback.onFalureResult("Fail");
+                Log.e("API Error", "Failed to fetch meal", throwable);
+            }
+        });
+    }
+
+    public void makeNetworkCallbackByIngred(NetworkCallback networkCallback) {
+        Call<MealResponse> call = mealInterface.getByIngredients();
+        call.enqueue(new Callback<MealResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<MealResponse> call, @NonNull Response<MealResponse> response) {
+                System.out.println("Response");
+                networkCallback.onSuccessResultIngred(response.body().getMealsList());
+                Log.i("AllProduct", "OnResponse: CallBack " + response.raw() + response.body());
+            }
+
+            @Override
+            public void onFailure(Call<MealResponse> call, Throwable throwable) {
+                networkCallback.onFalureResult("Fail");
+                Log.e("API Error", "Failed to fetch meal", throwable);
+            }
+        });
+    }
+
+    public void makeNetworkCallbackByIngredFiltered(NetworkCallback networkCallback, String ingredName) {
+        Call<MealResponse> call = mealInterface.getByFilteredIngredients(ingredName);
+        call.enqueue(new Callback<MealResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<MealResponse> call, @NonNull Response<MealResponse> response) {
+                System.out.println("Response");
+                if(response.isSuccessful() && response.body() != null) {
+                    if(response.body().getMealsList() != null) {
+                        networkCallback.onSuccessResultFilterIngred(response.body().getMealsList());
+                        Log.i("AllProduct", "OnResponse: CallBack " + response.raw() + response.body());
+                        System.out.println(response.body().getMealsList().get(0).getStrMeal());
+                    }else{
+                        networkCallback.onNotFound(ingredName);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MealResponse> call, Throwable throwable) {
+                networkCallback.onFalureResult("Fail");
+                Log.e("API Error", "Failed to fetch meal", throwable);
+            }
+        });
+    }
+
+    public void makeNetworkCallbackByCountFiltered(NetworkCallback networkCallback, String count) {
+        Call<MealResponse> call = mealInterface.getByFilteredCountry(count);
+        call.enqueue(new Callback<MealResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<MealResponse> call, @NonNull Response<MealResponse> response) {
+                System.out.println("Response");
+                if(response.isSuccessful() && response.body() != null) {
+                    if(response.body().getMealsList() != null) {
+                        networkCallback.onSuccessResultFilterCount(response.body().getMealsList());
+                        System.out.println(response.body().getMealsList().get(0).getStrMeal());
+                        //System.out.println(response.body().getMealsList().get(0).getStrMealThumb());
+                    }else{
+                        networkCallback.onNotFound(count);
+                    }
+                }else{
+                    System.out.println("Not Found");
+                }
                 Log.i("AllProduct", "OnResponse: CallBack " + response.raw() + response.body());
             }
 

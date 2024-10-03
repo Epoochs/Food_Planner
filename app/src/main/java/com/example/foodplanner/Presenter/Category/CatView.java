@@ -6,5 +6,7 @@ import com.example.foodplanner.Model.Meals;
 import java.util.List;
 
 public interface CatView {
-    void showData(List<Categories> categoriesList);
+    void showDataByCat(List<Categories> categoriesList);
+    void showDataByCatDetailed(List<Meals> mealsList);
+    void clearData();
 }

@@ -1,0 +1,11 @@
+<!-- In res/drawable/platepro_logo.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <drawable
+            android:drawable="@drawable/plate_shape" />
+    </item>
+    <item>
+        <drawable
+            android:drawable="@drawable/plate_text" />
+    </item>
+</layer-list>

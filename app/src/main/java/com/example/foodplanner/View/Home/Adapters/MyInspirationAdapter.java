@@ -1,6 +1,5 @@
 package com.example.foodplanner.View.Home.Adapters;
 
-import android.accessibilityservice.AccessibilityService;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -14,15 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.foodplanner.Model.Categories;
 import com.example.foodplanner.Model.Meals;
 import com.example.foodplanner.R;
-import com.example.foodplanner.View.Category.CatGridAdapter;
 import com.example.foodplanner.View.Home.DetailedHomeActivity;
 
 import java.util.ArrayList;
@@ -112,14 +108,16 @@ public class MyInspirationAdapter extends RecyclerView.Adapter<MyInspirationAdap
             this.convertView = itemView;
             imageView = itemView.findViewById(R.id.imageView2);
             textView = itemView.findViewById(R.id.tvMealName1);
-            imageButton = itemView.findViewById(R.id.imgBtnFav);
+            imageButton = itemView.findViewById(R.id.imgBtnFavDetailedIngred);
             imageButton.setSelected(btnFavState);
         }
     }
 
     public void setList(List<Meals> mealsList){
-        this.meals.clear();
-        this.meals.addAll(mealsList);
-        notifyDataSetChanged();
+        if (mealsList != null && meals != null) {
+            this.meals.clear();
+            this.meals.addAll(mealsList);
+            notifyDataSetChanged();
+        }
     }
 }

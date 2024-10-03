@@ -1,4 +1,4 @@
-package com.example.foodplanner.View;
+package com.example.foodplanner.View.Search;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,8 @@ import android.widget.Button;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.View.Category.CategoryActivity;
+import com.example.foodplanner.View.Country.CountryActivity;
+import com.example.foodplanner.View.Ingredient.IngredActivity;
 
 public class SearchFragment extends Fragment {
 
@@ -30,9 +32,21 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         btnCategor = view.findViewById(R.id.btnSearchCat);
+        btnArea = view.findViewById(R.id.btnSearchCntry);
+        btnIngredients = view.findViewById(R.id.btnSearchIng);
 
         btnCategor.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), CategoryActivity.class);
+            startActivity(intent);
+        });
+
+        btnArea.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), CountryActivity.class);
+            startActivity(intent);
+        });
+
+        btnIngredients.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), IngredActivity.class);
             startActivity(intent);
         });
     }

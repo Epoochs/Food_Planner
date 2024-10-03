@@ -11,18 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
+import com.example.foodplanner.Model.Categories;
 import com.example.foodplanner.Model.Meals;
 import com.example.foodplanner.Presenter.Home.HomePresenter;
 import com.example.foodplanner.Presenter.Home.HomeView;
 import com.example.foodplanner.R;
-import com.example.foodplanner.View.Favourate.FavourateFragment;
+import com.example.foodplanner.View.Category.Adapters.CatGridAdapter;
+import com.example.foodplanner.View.Country.Adapter.CountGridAdapter;
 import com.example.foodplanner.View.Home.Adapters.MyInspirationAdapter;
 import com.example.foodplanner.View.Home.Adapters.OnFavClickListener;
+import com.example.foodplanner.View.Ingredient.Adapter.MyIngredAdapterSearch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +33,26 @@ public class HomeFragment extends Fragment implements HomeView, OnFavClickListen
 
     HomePresenter homePresenter;
 
+    /* Inspiration */
     RecyclerView recyclerViewMealInsp;
     MyInspirationAdapter myInspirationAdapter;
     LinearLayoutManager insplayoutManager;
+
+    /* Category */
+    RecyclerView recyclerViewMealCat;
+    CatGridAdapter catGridAdapter;
+    LinearLayoutManager CatlinearLayoutManager;
+
+    /* Ingredients */
+    RecyclerView recyclerViewMealIngred;
+    MyIngredAdapterSearch myIngredAdapter;
+    LinearLayoutManager ingredlinearLayoutManager;
+
+    /* Country */
+    RecyclerView recyclerViewCount;
+    CountGridAdapter countGridAdapter;
+    LinearLayoutManager countlinearLayoutManager;
+
     boolean btnFavState;
 
     @Override
@@ -62,16 +78,34 @@ public class HomeFragment extends Fragment implements HomeView, OnFavClickListen
         insplayoutManager = new LinearLayoutManager(requireContext());
         insplayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerViewMealInsp.setLayoutManager(insplayoutManager);
-        System.out.println(btnFavState);
         myInspirationAdapter = new MyInspirationAdapter(requireContext(), new ArrayList<Meals>(), this, btnFavState);
         recyclerViewMealInsp.setAdapter(myInspirationAdapter);
 
+        /* Recycle preparation of Meal Category */
+        CatlinearLayoutManager = new LinearLayoutManager(requireContext());
+        CatlinearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        recyclerViewMealCat.setLayoutManager(CatlinearLayoutManager);
+        catGridAdapter = new CatGridAdapter(requireContext(),new ArrayList<Categories>());
+        recyclerViewMealCat.setAdapter(catGridAdapter);
+
+        /* Recycle preparation of Meal Ingredients */
+        ingredlinearLayoutManager = new LinearLayoutManager(requireContext());
+        ingredlinearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        recyclerViewMealIngred.setLayoutManager(ingredlinearLayoutManager);
+        myIngredAdapter = new MyIngredAdapterSearch(requireContext(),new ArrayList<>());
+        recyclerViewMealIngred.setAdapter(myIngredAdapter);
+
+        /* Recycle preparation of Meal Country */
+        countlinearLayoutManager = new LinearLayoutManager(requireContext());
+        countlinearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        recyclerViewCount.setLayoutManager(countlinearLayoutManager);
+        countGridAdapter = new CountGridAdapter(requireContext(),new ArrayList<>());
+        recyclerViewCount.setAdapter(countGridAdapter);
 
         /* Init a Presenter that would be the middleman between View and Model
         * We made it only one instance so that we can keep the last picked-up random meal through
         * the Application */
-       homePresenter = HomePresenter.getHomeInstance(requireContext(),this);
-
+       homePresenter = HomePresenter.getHomeInstance(requireContext(),this);;
     }
 
     @Override
@@ -89,12 +123,30 @@ public class HomeFragment extends Fragment implements HomeView, OnFavClickListen
     private void init(){
         if (view != null) {
             recyclerViewMealInsp = view.findViewById(R.id.MealInspirationRecycleView);
+            recyclerViewMealCat = view.findViewById(R.id.recyclerViewMealByCat);
+            recyclerViewMealIngred = view.findViewById(R.id.rvIngredients);
+            recyclerViewCount = view.findViewById(R.id.rvCountry);
         }
     }
 
     @Override
-    public void showData(List<Meals> meals) {
+    public void showDataMealInsp(List<Meals> meals) {
         myInspirationAdapter.setList(meals);
+    }
+
+    @Override
+    public void showDataMealCat(List<Categories> categories) {
+        catGridAdapter.setList(categories);
+    }
+
+    @Override
+    public void showDataMealIng(List<Meals> meals) {
+        myIngredAdapter.setList(meals);
+    }
+
+    @Override
+    public void showDataMealCount(List<Meals> meals) {
+        countGridAdapter.setMealsList(meals);
     }
 
     @Override

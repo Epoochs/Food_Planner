@@ -1,0 +1,17 @@
+<!-- In res/drawable/plate_text.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="50dp"
+    android:viewportWidth="200"
+    android:viewportHeight="50">
+    <path
+        android:fillColor="#FFFFFF"
+    android:pathData="M10,40 L10,10 L30,10 L30,40 L10,40 Z M50,40 L50,10 L70,10 L70,40 L50,40 Z M90,40 L90,10 L110,10 L110,40 L90,40 Z
+    M130,40 L130,10 L150,10 L150,40 L130,40 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M175,10 L175,40 L180,40 L180,10 L175,10 Z" /> <!-- Example letter P -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M195,10 L195,40 L200,40 L200,10 L195,10 Z" /> <!-- Example letter o -->
+</vector>

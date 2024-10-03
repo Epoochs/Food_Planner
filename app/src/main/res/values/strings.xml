@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Food Planner</string>
+    <string name="app_name">PlatePro</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="for_you">For You</string>
@@ -22,4 +22,8 @@
     <string name="meal_name">Meal Name</string>
     <string name="mealview">MealView</string>
     <string name="textviewSteps">TextViewSteps</string>
+    <string name="Calendar">Calendar</string>
+    <string name="favorite">Favorite</string>
+    <string name="home">Home</string>
+    <string name="CountDetailMealName">CountDetailMealName</string>
 </resources>

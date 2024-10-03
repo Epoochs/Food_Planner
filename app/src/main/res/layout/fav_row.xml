@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/FavCardView"
+    android:id="@+id/DetailedIngredCardView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="5dp"
@@ -14,12 +14,13 @@
     app:layout_constraintTop_toTopOf="parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constFav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/material_dynamic_neutral99">
 
         <ImageView
-            android:id="@+id/imgFavMeal"
+            android:id="@+id/imgDetailedIngredMeal"
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:layout_marginStart="5dp"
@@ -31,24 +32,26 @@
             app:srcCompat="@drawable/ic_launcher_background" />
 
         <TextView
-            android:id="@+id/tvFavMealName"
+            android:id="@+id/tvDetailedIngredName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="29dp"
+            android:layout_marginEnd="5dp"
             android:layout_marginBottom="10dp"
             android:fontFamily="sans-serif-condensed-medium"
             android:text="@string/textview"
-            android:textAlignment="viewStart"
+            android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/constFav"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgFavMeal" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgDetailedIngredMeal" />
 
         <ImageButton
-            android:id="@+id/imgBtnFav"
+            android:id="@+id/imgBtnFavDetailedIngred"
             android:layout_width="66dp"
             android:layout_height="68dp"
             android:layout_marginTop="20dp"

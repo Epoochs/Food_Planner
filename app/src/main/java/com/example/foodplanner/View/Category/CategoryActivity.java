@@ -1,10 +1,7 @@
 package com.example.foodplanner.View.Category;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.Toast;
+import android.widget.SearchView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,17 +13,23 @@ import com.example.foodplanner.Model.Meals;
 import com.example.foodplanner.Presenter.Category.CatPresenter;
 import com.example.foodplanner.Presenter.Category.CatView;
 import com.example.foodplanner.R;
+import com.example.foodplanner.View.Category.Adapters.CatGridAdapter;
+import com.example.foodplanner.View.Listener.OnFavMealClickListener;
+import com.example.foodplanner.View.Ingredient.Adapter.DetailedIngredAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryActivity extends AppCompatActivity implements CatView {
+public class CategoryActivity extends AppCompatActivity implements CatView, OnFavMealClickListener {
 
     RecyclerView gridView;
     CatGridAdapter catGridAdapter;
+    DetailedIngredAdapter detailedIngredAdapter;
     List<Categories> categoriesList;
+    List<Meals> mealsList;
     CatPresenter catPresenter;
     GridLayoutManager gridLayoutManager;
+    SearchView searchView;
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +37,76 @@ public class CategoryActivity extends AppCompatActivity implements CatView {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_category);
 
-        gridView = findViewById(R.id.catRecycleView);
-        gridLayoutManager = new GridLayoutManager(this,2);
-        catGridAdapter = new CatGridAdapter(this,new ArrayList<>());
-        gridView.setLayoutManager(gridLayoutManager);
-        gridView.setAdapter(catGridAdapter);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
-        catPresenter = new CatPresenter(this,this);
+        searchView = findViewById(R.id.svCatDetails);
+
+        gridView = findViewById(R.id.catRecycleView);
+        gridLayoutManager = new GridLayoutManager(this, 2);
+        detailedIngredAdapter = new DetailedIngredAdapter(this, mealsList, this);
+        gridView.setLayoutManager(gridLayoutManager);
+        gridView.setAdapter(detailedIngredAdapter);
+
+        catPresenter = new CatPresenter(this, this);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                if (!s.isEmpty()) {
+                    updateMeals(s);
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
     }
 
     @Override
-    public void showData(List<Categories> categories) {
+    protected void onResume() {
+        super.onResume();
+        count = 0;
+    }
+
+    @Override
+    public void showDataByCat(List<Categories> categories) {
         this.categoriesList = categories;
         catGridAdapter.setList(categories);
+    }
+
+    @Override
+    public void showDataByCatDetailed(List<Meals> mealsList) {
+        this.mealsList = mealsList;
+        if (mealsList != null) {
+            detailedIngredAdapter.setDetailedIngredList(mealsList);
+        }
+    }
+
+    @Override
+    public void clearData() {
+        detailedIngredAdapter.setClear();
+    }
+
+    @Override
+    public void onFavClick(Meals meals, boolean btnBtnState) {
+        if (meals != null) {
+            catPresenter.addMeal(meals);
+        }
+    }
+
+    @Override
+    public void onUnFavClick(Meals meals) {
+        if (meals != null) {
+            catPresenter.removeMeal(meals);
+        }
+    }
+
+    public void updateMeals(String catName) {
+        catPresenter.catInDetails(catName);
     }
 }

@@ -12,7 +12,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.foodplanner.View.Favourate.FavourateFragment;
 import com.example.foodplanner.View.Home.HomeFragment;
-import com.example.foodplanner.View.SearchFragment;
+import com.example.foodplanner.View.Planner.PlannerFragment;
+import com.example.foodplanner.View.Search.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     HomeFragment homeFragment;
     SearchFragment searchFragment;
     FavourateFragment favourateFragment;
+    PlannerFragment plannerFragment;
     FragmentTransaction fragmentTransaction;
     FragmentManager fragmentManager;
     BottomNavigationView bottomNavigationView;
@@ -32,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         /* Init my UI components */
         init();
@@ -49,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     if(R.id.navigation_favorite == itemID){
                         replaceFragment(favourateFragment == null ? favourateFragment = new FavourateFragment() : favourateFragment);
+                    }else{
+                        if(R.id.navigation_cal == itemID){
+                            replaceFragment(plannerFragment == null ? plannerFragment = new PlannerFragment() : plannerFragment);
+                        }
                     }
                 }
             }
@@ -61,7 +70,14 @@ public class MainActivity extends AppCompatActivity {
     private void replaceFragment(Fragment fragment){
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainerView,fragment).setReorderingAllowed(true);
+
+        Fragment ifExist = fragmentManager.findFragmentByTag(fragment.getClass().getSimpleName());
+
+        if(ifExist == null){
+            fragmentTransaction.replace(R.id.fragmentContainerView,fragment, fragment.getClass().getSimpleName());
+        }else{
+            fragmentTransaction.replace(R.id.fragmentContainerView,ifExist);
+        }
         fragmentTransaction.commit();
     }
     private void init(){

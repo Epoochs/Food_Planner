@@ -45,7 +45,7 @@ public class MealRepository {
     public void getAllCategories(NetworkCallback networkCallback){
         client.makeNetworkCallbackByCategory(networkCallback);
     }
-    public void getCategoryInDetails(NetworkCallback networkCallback, Meals catMealName){
+    public void getCategoryInDetails(NetworkCallback networkCallback, String catMealName){
         client.makeNetworkCallbackByCategoryInDetails(networkCallback,catMealName);
     }
 

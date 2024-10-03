@@ -4,7 +4,7 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:title="@string/home" />
     <item
         android:id="@+id/navigation_search"
         android:icon="@drawable/ic_search"
@@ -12,6 +12,9 @@
     <item
         android:id="@+id/navigation_favorite"
         android:icon="@drawable/ic_favorite"
-        android:title="Favorite" />
-    <item android:title="navigation_cal" />
+        android:title="@string/favorite" />
+    <item
+        android:id="@+id/navigation_cal"
+        android:icon="@drawable/baseline_calendar_month_24"
+        android:title="@string/Calendar" />
 </menu>

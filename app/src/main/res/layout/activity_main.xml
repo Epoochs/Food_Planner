@@ -10,12 +10,9 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
-        android:layout_width="404dp"
-        android:layout_height="671dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,7 +23,7 @@
         android:background="@color/material_dynamic_neutral90"
         android:scrollbarStyle="outsideInset"
         android:verticalScrollbarPosition="defaultPosition"
-        app:backgroundTint="@color/material_dynamic_secondary70"
+        app:backgroundTint="@color/material_dynamic_secondary20"
         app:itemActiveIndicatorStyle="@style/CustomActiveIndicatorStyle"
         app:itemBackground="@color/material_dynamic_secondary20"
         app:itemHorizontalTranslationEnabled="true"

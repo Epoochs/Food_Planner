@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity(tableName = "favorites")
 public class Meals{
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = false)
     private int idMeal;
     private String strMeal;
     private String strDrinkAlternate;
@@ -20,6 +20,8 @@ public class Meals{
     private String strYoutube;
 
     /* Ingredients */
+    private String strIngredient;
+    private String strDescription;
     private String strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5;
     private String strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10;
     private String strIngredient11, strIngredient12, strIngredient13, strIngredient14, strIngredient15;
@@ -127,6 +129,14 @@ public class Meals{
 
     public String getStrIngredient2() {
         return strIngredient2;
+    }
+
+    public String getStrIngredient() {
+        return strIngredient;
+    }
+
+    public String getStrDescription() {
+        return strDescription;
     }
 
     public String getStrIngredient3() {
@@ -507,6 +517,15 @@ public class Meals{
     public void setStrSource(String strSource) {
         this.strSource = strSource;
     }
+
+    public void setStrIngredient(String strIngredient) {
+        this.strIngredient = strIngredient;
+    }
+
+    public void setStrDescription(String strDescription) {
+        this.strDescription = strDescription;
+    }
+
     public List<String> getMeasurements() {
         List<String> measurements = new ArrayList<>();
         // Add each measurement to the list if it's not null or empty

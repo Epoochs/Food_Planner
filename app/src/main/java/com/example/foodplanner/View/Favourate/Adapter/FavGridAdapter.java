@@ -1,10 +1,9 @@
-package com.example.foodplanner.View.Favourate;
+package com.example.foodplanner.View.Favourate.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,7 +15,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.foodplanner.Model.Meals;
 import com.example.foodplanner.R;
-import com.example.foodplanner.View.Home.Adapters.MyInspirationAdapter;
+import com.example.foodplanner.View.Listener.OnUnFavClickListener;
+import com.example.foodplanner.View.Favourate.PreferenceManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +27,7 @@ public class FavGridAdapter extends RecyclerView.Adapter<FavGridAdapter.ViewHold
     Context context;
     boolean btnFavState = false;
     OnUnFavClickListener onUnFavClickListener;
+    PreferenceManager preferenceManager;
 
     public FavGridAdapter(Context context, List list, OnUnFavClickListener onUnFavClickListener){
         if(list != null){
@@ -53,7 +54,7 @@ public class FavGridAdapter extends RecyclerView.Adapter<FavGridAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textView.setText(meals.get(position).getStrCategory());
+        holder.textView.setText(meals.get(position).getStrMeal());
         Glide.with(this.context)
                 .load(meals.get(position).getStrMealThumb())
                 .apply(new RequestOptions().override(200,200))
@@ -65,6 +66,7 @@ public class FavGridAdapter extends RecyclerView.Adapter<FavGridAdapter.ViewHold
         holder.imageButton.setOnClickListener(v -> {
             btnFavState = !btnFavState;
             holder.imageButton.setSelected(btnFavState);
+
 
             /* Request to Activity for Removing the meal from the database */
             onUnFavClickListener.onUnFavClick(meals.get(position));
@@ -92,9 +94,9 @@ public class FavGridAdapter extends RecyclerView.Adapter<FavGridAdapter.ViewHold
             super(convertView);
             this.convertView = convertView;
 
-            imageView = convertView.findViewById(R.id.imgFavMeal);
-            textView = convertView.findViewById(R.id.tvFavMealName);
-            imageButton = convertView.findViewById(R.id.imgBtnFav);
+            imageView = convertView.findViewById(R.id.imgDetailedIngredMeal);
+            textView = convertView.findViewById(R.id.tvDetailedIngredName);
+            imageButton = convertView.findViewById(R.id.imgBtnFavDetailedIngred);
             imageButton.setSelected(false);
         }
 

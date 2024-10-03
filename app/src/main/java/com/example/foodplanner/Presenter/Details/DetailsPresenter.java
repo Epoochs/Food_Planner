@@ -17,15 +17,20 @@ public class DetailsPresenter implements NetworkCallback {
     Client client;
     Context context;
     Repository repository;
+    static DetailsPresenter detailsPresenter = null;
 
-    public DetailsPresenter(Context context, DetailedView detailedView, String name){
+    public DetailsPresenter(Context context, DetailedView detailedView){
         this.detailedView = detailedView;
-        this.context = context;
+        this.context = context.getApplicationContext();
 
         repository = Repository.getInstance(context);
+    }
 
-        client = new Client();
-        client.makeNetworkCallbackByName(this,name);
+    public static DetailsPresenter getInstance(Context context, DetailedView detailedView){
+        //if(detailsPresenter == null){
+            detailsPresenter = new DetailsPresenter(context,detailedView);
+       // }
+        return detailsPresenter;
     }
 
     @Override
@@ -39,8 +44,33 @@ public class DetailsPresenter implements NetworkCallback {
     }
 
     @Override
+    public void onSuccessResultCount(List<Meals> mealsList) {
+
+    }
+
+    @Override
+    public void onSuccessResultIngred(List<Meals> mealsList) {
+
+    }
+
+    @Override
     public void onSuccessResultName(List<Meals> mealsList) {
         detailedView.showData(mealsList.get(0));
+    }
+
+    @Override
+    public void onSuccessResultFilterCat(List<Meals> mealsList) {
+        detailedView.showData(mealsList);
+    }
+
+    @Override
+    public void onSuccessResultFilterIngred(List<Meals> mealsList) {
+
+    }
+
+    @Override
+    public void onSuccessResultFilterCount(List<Meals> mealsList) {
+
     }
 
     @Override
@@ -52,6 +82,11 @@ public class DetailsPresenter implements NetworkCallback {
         dialog.show();
     }
 
+    @Override
+    public void onNotFound(String str) {
+
+    }
+
     public void insertMeal(Meals meal){
         repository.addProduct(meal);
     }
@@ -59,5 +94,15 @@ public class DetailsPresenter implements NetworkCallback {
     public void removeMeal(Meals meal)
     {
         repository.removeProduct(meal);
+    }
+
+    public void getDetailedCat(String category){
+        client = Client.getInstance();
+        client.makeNetworkCallbackByCategoryInDetails(this,category);
+    }
+
+    public void getMealByName(String name){
+        client = new Client();
+        client.makeNetworkCallbackByName(this,name);
     }
 }

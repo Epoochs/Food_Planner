@@ -1,20 +1,21 @@
 package com.example.foodplanner.View.Home;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,14 +26,14 @@ import com.example.foodplanner.Presenter.Details.DetailedView;
 import com.example.foodplanner.Presenter.Details.DetailsPresenter;
 import com.example.foodplanner.R;
 import com.example.foodplanner.View.Home.Adapters.MyIngredAdapter;
-import com.example.foodplanner.View.Home.Adapters.MyInspirationAdapter;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class DetailedHomeActivity extends AppCompatActivity implements DetailedView {
 
     ImageView imageView;
     ImageButton imageButton;
+    Button btnCalenderized;
 
     TextView tvMealName;
     TextView tvMealCount;
@@ -55,12 +56,17 @@ public class DetailedHomeActivity extends AppCompatActivity implements DetailedV
         EdgeToEdge.enable(this);
         setContentView(R.layout.detailed_meal_activity);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Food Details");
+        }
+
         Intent intent = getIntent();
         String mealName = intent.getStringExtra("MealName");
 
         init();
 
-        detailsPresenter = new DetailsPresenter(this,this,mealName);
+        detailsPresenter = DetailsPresenter.getInstance(this,this);
+        detailsPresenter.getMealByName(mealName);
 
         imageButton.setOnClickListener(v -> {
 
@@ -79,12 +85,36 @@ public class DetailedHomeActivity extends AppCompatActivity implements DetailedV
         myIngredAdapter = new MyIngredAdapter(this,meal);
         recyclerView.setAdapter(myIngredAdapter);
 
+        btnCalenderized.setOnClickListener(v -> {
+            final Calendar c = Calendar.getInstance();
+
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // on below line we are creating a variable for date picker dialog.
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    // on below line we are passing context.
+                    DetailedHomeActivity.this,
+                    new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year,
+                                              int monthOfYear, int dayOfMonth) {
+                            // on below line we are setting date to our edit text.
+                        }
+                    },
+                    year, month, day);
+            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+            datePickerDialog.show();
+        });
+
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     private void init(){
         imageView = findViewById(R.id.imageView3);
-        imageButton = findViewById(R.id.imgBtnFav);
+        imageButton = findViewById(R.id.imgBtnFavDetailedIngred);
+        btnCalenderized = findViewById(R.id.btnAddtoCalender);
 
         tvMealCount = findViewById(R.id.tvMealCount);
         tvMealName = findViewById(R.id.tvMealName2);
@@ -102,12 +132,14 @@ public class DetailedHomeActivity extends AppCompatActivity implements DetailedV
     public void showData(Meals meals) {
         meal = meals;
         /* Image View */
-        Glide.with(this)
-                .load(meals.getStrMealThumb())
-                .apply(new RequestOptions().override(200,200))
-                .placeholder(R.drawable.baseline_downloading_24)
-                .error(R.drawable.ic_launcher_foreground)
-                .into(imageView);
+        if (!isFinishing() && !isDestroyed()) {
+            Glide.with(this)
+                    .load(meals.getStrMealThumb())
+                    .apply(new RequestOptions().override(200, 200))
+                    .placeholder(R.drawable.baseline_downloading_24)
+                    .error(R.drawable.ic_launcher_foreground)
+                    .into(imageView);
+        }
 
         tvMealName.setText(meals.getStrMeal());
         tvMealCount.setText(meals.getStrArea());
@@ -122,5 +154,10 @@ public class DetailedHomeActivity extends AppCompatActivity implements DetailedV
         webView.loadData(html, "text/html", "UTF-8");
 
         tvMealSteps.setText(meals.getStrInstructions());
+    }
+
+    @Override
+    public void showData(List<Meals> mealsList) {
+
     }
 }

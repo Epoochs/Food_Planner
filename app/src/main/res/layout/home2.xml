@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/homeScrollView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginStart="1dp"
     android:layout_marginTop="1dp"
     android:layout_marginEnd="1dp"
@@ -18,8 +18,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/material_dynamic_neutral_variant99"
+        android:layout_height="match_parent"
+        android:background="@color/material_dynamic_neutral_variant95"
         tools:context=".MainActivity">
 
         <TextView
@@ -46,7 +46,6 @@
             android:focusable="auto"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:background="@drawable/rec_ripple_effect"
             app:layout_constraintTop_toBottomOf="@+id/tvMealInspiration" />
 
         <TextView
@@ -74,13 +73,12 @@
             app:layout_constraintTop_toBottomOf="@+id/tvMealByCat" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="48dp"
-            android:fontFamily="sans-serif-black"
-            android:text="@string/meals_by_country"
+            android:text="@string/meals_by_ingredients"
             android:textColor="@color/black"
             android:textSize="19sp"
             android:textStyle="bold"
@@ -88,36 +86,34 @@
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewMealByCat" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleViewMealbyCount"
+            android:id="@+id/rvIngredients"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="48dp"
-            android:fontFamily="sans-serif-black"
-            android:text="@string/meals_by_ingredients"
+            android:text="@string/meals_by_country"
             android:textColor="@color/black"
             android:textSize="19sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recycleViewMealbyCount" />
+            app:layout_constraintTop_toBottomOf="@+id/rvIngredients" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleViewMealbyIng"
+            android:id="@+id/rvCountry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

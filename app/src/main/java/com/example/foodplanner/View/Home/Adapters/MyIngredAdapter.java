@@ -89,10 +89,10 @@ public class MyIngredAdapter extends RecyclerView.Adapter<MyIngredAdapter.ViewHo
         if (meals != null) {
             ingredients = (ArrayList<String>) meals.getIngredients();
             measurements = (ArrayList<String>) meals.getMeasurements();
+            notifyDataSetChanged();
         } else {
             ingredients = new ArrayList<>();
             measurements = new ArrayList<>();
         }
-        notifyDataSetChanged();
     }
 }

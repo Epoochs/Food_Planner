@@ -21,12 +21,12 @@ public interface MealInterface {
     @GET("search.php")
     Call<MealResponse> getByName(@Query("s") String name);
 
-    @GET("list.php")
+    @GET("filter.php")
     Call<MealResponse> getByFilteredIngredients(@Query("i") String ingredients);
 
-    @GET("list.php")
+    @GET("filter.php")
     Call<MealResponse> getByFilteredCountry(@Query("a") String Country);
 
-    @GET("list.php")
+    @GET("filter.php")
     Call<MealResponse> getByFilteredCategory(@Query("c") String Category);
 }
