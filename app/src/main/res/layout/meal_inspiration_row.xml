@@ -25,7 +25,7 @@
             app:srcCompat="@drawable/ic_launcher_background" />
 
         <ImageButton
-            android:id="@+id/imgBtnFavDetailedIngred"
+            android:id="@+id/imgBtnCalMeal"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"

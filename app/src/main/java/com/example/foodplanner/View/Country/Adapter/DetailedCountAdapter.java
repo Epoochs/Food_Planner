@@ -102,9 +102,9 @@ public class DetailedCountAdapter extends RecyclerView.Adapter<DetailedCountAdap
             super(convertView);
             this.convertView = convertView;
 
-            imageButton = convertView.findViewById(R.id.imgBtnFavDetailedIngred);
-            imageView = convertView.findViewById(R.id.imgDetailedIngredMeal);
-            textView = convertView.findViewById(R.id.tvDetailedIngredName);
+            imageButton = convertView.findViewById(R.id.imgBtnCalMeal);
+            imageView = convertView.findViewById(R.id.imgDetailedPlannerMeal);
+            textView = convertView.findViewById(R.id.tvDetailedPlannerName);
         }
     }
 

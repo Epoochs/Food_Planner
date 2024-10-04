@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 
 import com.example.foodplanner.Model.Categories;
+import com.example.foodplanner.Model.Day;
 import com.example.foodplanner.Model.Meals;
+import com.example.foodplanner.Model.Relation.MealAndDayCrossRef;
 import com.example.foodplanner.Model.Repository;
 import com.example.foodplanner.Networking.Client;
 import com.example.foodplanner.Networking.NetworkCallback;
@@ -104,5 +106,14 @@ public class DetailsPresenter implements NetworkCallback {
     public void getMealByName(String name){
         client = new Client();
         client.makeNetworkCallbackByName(this,name);
+    }
+
+    public void addMealDay(Meals meals, Day day){
+        System.out.println(day.getDay());
+        repository.addMealDay(new MealAndDayCrossRef(meals.getIdMeal(), day.getDay()));
+    }
+
+    public void insertDay(Day day){
+        repository.addDay(day);
     }
 }

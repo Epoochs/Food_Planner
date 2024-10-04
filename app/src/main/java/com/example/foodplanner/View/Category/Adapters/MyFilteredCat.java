@@ -96,9 +96,9 @@ public class MyFilteredCat extends RecyclerView.Adapter<MyFilteredCat.ViewHolder
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             convertView = itemView;
-            imageButton = convertView.findViewById(R.id.imgBtnFavDetailedIngred);
-            tvMealName = convertView.findViewById(R.id.tvDetailedIngredName);
-            imageView = convertView.findViewById(R.id.imgDetailedIngredMeal);
+            imageButton = convertView.findViewById(R.id.imgBtnCalMeal);
+            tvMealName = convertView.findViewById(R.id.tvDetailedPlannerName);
+            imageView = convertView.findViewById(R.id.imgDetailedPlannerMeal);
         }
     }
 

@@ -108,7 +108,7 @@ public class MyInspirationAdapter extends RecyclerView.Adapter<MyInspirationAdap
             this.convertView = itemView;
             imageView = itemView.findViewById(R.id.imageView2);
             textView = itemView.findViewById(R.id.tvMealName1);
-            imageButton = itemView.findViewById(R.id.imgBtnFavDetailedIngred);
+            imageButton = itemView.findViewById(R.id.imgBtnCalMeal);
             imageButton.setSelected(btnFavState);
         }
     }

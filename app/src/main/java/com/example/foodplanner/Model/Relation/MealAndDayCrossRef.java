@@ -1,28 +1,32 @@
 package com.example.foodplanner.Model.Relation;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 
-@Entity(tableName = "mealAndDay",primaryKeys = {"MealID","DayID"})
+@Entity(tableName = "mealAndDay",primaryKeys = {"idMeal","day"})
 public class MealAndDayCrossRef {
-    private int mealID;
-    private int dayID;
+    private int idMeal;
+    @NonNull
+    private String day;
 
-    public MealAndDayCrossRef(int mealID, int dayID) {
-        this.mealID = mealID;
-        this.dayID = dayID;
-    }
-
-    public int getMealID() {
-        return mealID;
-    }
-    public int getDayID() {
-        return dayID;
+    public MealAndDayCrossRef(int mealID, String day) {
+        this.idMeal = mealID;
+        this.day = day;
     }
 
-    public void setMealID(int mealID) {
-        this.mealID = mealID;
+    public MealAndDayCrossRef(){}
+
+    public int getIdMeal() {
+        return idMeal;
     }
-    public void setDayID(int dayID) {
-        this.dayID = dayID;
+    public String getDay() {
+        return day;
+    }
+
+    public void setIdMeal(int mealID) {
+        this.idMeal = mealID;
+    }
+    public void setDay(String day) {
+        this.day = day;
     }
 }

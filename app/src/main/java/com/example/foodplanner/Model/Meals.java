@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(tableName = "favorites")
+@Entity(tableName = "meal")
 public class Meals{
     @PrimaryKey(autoGenerate = false)
     private int idMeal;
@@ -18,6 +18,8 @@ public class Meals{
     private String strCategory;
     private String strArea;
     private String strYoutube;
+
+    private boolean isFavourate = false;
 
     /* Ingredients */
     private String strIngredient;
@@ -91,6 +93,10 @@ public class Meals{
 
     public Meals(){}
     /* Getters */
+    public boolean getIsFavourate(){
+        return isFavourate;
+    }
+
     public String getStrMeal() {
         return strMeal;
     }
@@ -322,6 +328,10 @@ public class Meals{
     }
 
     /* Setters */
+    public void setIsFavourate(boolean isFavourate){
+        this.isFavourate = isFavourate;
+    }
+
     public void setStrMeal(String strMeal) {
         this.strMeal = strMeal;
     }

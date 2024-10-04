@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.foodplanner.Model.Day;
 import com.example.foodplanner.Model.Meals;
 import com.example.foodplanner.Presenter.Details.DetailedView;
 import com.example.foodplanner.Presenter.Details.DetailsPresenter;
@@ -47,6 +48,7 @@ public class DetailedHomeActivity extends AppCompatActivity implements DetailedV
 
     DetailsPresenter detailsPresenter;
     Meals meal;
+    Day dayMeal;
 
     boolean btnFavState;
 
@@ -100,7 +102,16 @@ public class DetailedHomeActivity extends AppCompatActivity implements DetailedV
                         @Override
                         public void onDateSet(DatePicker view, int year,
                                               int monthOfYear, int dayOfMonth) {
-                            // on below line we are setting date to our edit text.
+                            String selectedDate = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                            /* Test */
+                            System.out.println(selectedDate);
+                            dayMeal = new Day();
+                            dayMeal.setDay(selectedDate);
+                            detailsPresenter.insertDay(dayMeal);
+                            System.out.println("On Date set: " + dayMeal.getDay());
+                            //meal.setIsFavourate(false);
+                            detailsPresenter.insertMeal(meal);
+                            detailsPresenter.addMealDay(meal,dayMeal);
                         }
                     },
                     year, month, day);
@@ -113,7 +124,7 @@ public class DetailedHomeActivity extends AppCompatActivity implements DetailedV
     @SuppressLint("SetJavaScriptEnabled")
     private void init(){
         imageView = findViewById(R.id.imageView3);
-        imageButton = findViewById(R.id.imgBtnFavDetailedIngred);
+        imageButton = findViewById(R.id.imgBtnCalMeal);
         btnCalenderized = findViewById(R.id.btnAddtoCalender);
 
         tvMealCount = findViewById(R.id.tvMealCount);

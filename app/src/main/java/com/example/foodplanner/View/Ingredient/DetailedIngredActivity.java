@@ -50,12 +50,18 @@ public class DetailedIngredActivity extends AppCompatActivity implements OnFavMe
 
     @Override
     public void onFavClick(Meals meals, boolean btnBtnState) {
-        ingredPresenter.addMeal(meals);
+        if(meals != null) {
+            meals.setIsFavourate(true);
+            ingredPresenter.addMeal(meals);
+        }
     }
 
     @Override
     public void onUnFavClick(Meals meals) {
-        ingredPresenter.removeMeal(meals);
+        if(meals != null) {
+            meals.setIsFavourate(false);
+            ingredPresenter.removeMeal(meals);
+        }
     }
 
     @Override

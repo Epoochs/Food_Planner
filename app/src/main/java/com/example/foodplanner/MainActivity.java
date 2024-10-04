@@ -1,7 +1,17 @@
 package com.example.foodplanner;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
+import android.net.NetworkRequest;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,10 +32,13 @@ public class MainActivity extends AppCompatActivity {
     SearchFragment searchFragment;
     FavourateFragment favourateFragment;
     PlannerFragment plannerFragment;
+    NoConnectionFragment noConnectionFragment;
     FragmentTransaction fragmentTransaction;
     FragmentManager fragmentManager;
     BottomNavigationView bottomNavigationView;
     FragmentContainerView fragmentContainerView;
+    boolean networkState = false;
+    int isLost = 0;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -38,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
+        Intent intent = getIntent();
+        networkState = intent.getBooleanExtra("NetState", true);
+
         /* Init my UI components */
         init();
 
@@ -47,10 +63,18 @@ public class MainActivity extends AppCompatActivity {
             int itemID = item.getItemId();
 
             if(R.id.navigation_home == itemID){
-                replaceFragment(homeFragment == null ? homeFragment = new HomeFragment() : homeFragment);
+                if(networkState) {
+                    replaceFragment(homeFragment == null ? homeFragment = new HomeFragment() : homeFragment);
+                }else{
+                    replaceFragment(noConnectionFragment == null ? noConnectionFragment = new NoConnectionFragment() : noConnectionFragment);
+                }
             }else{
                 if(R.id.navigation_search == itemID){
-                    replaceFragment(searchFragment == null ? searchFragment = new SearchFragment() : searchFragment);
+                    if(networkState) {
+                        replaceFragment(searchFragment == null ? searchFragment = new SearchFragment() : searchFragment);
+                    }else{
+                        replaceFragment(noConnectionFragment == null ? noConnectionFragment = new NoConnectionFragment() : noConnectionFragment);
+                    }
                 }else{
                     if(R.id.navigation_favorite == itemID){
                         replaceFragment(favourateFragment == null ? favourateFragment = new FavourateFragment() : favourateFragment);
@@ -64,7 +88,19 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        replaceFragment(homeFragment == null ? homeFragment = new HomeFragment() : homeFragment);
+        if(checkConnection()){
+            networkState = true;
+        }else{
+            Toast.makeText(MainActivity.this, "Connection is Lost", Toast.LENGTH_SHORT).show();
+            networkState = false;
+            showUnAvailableDialog();
+        }
+
+        if(networkState){
+            replaceFragment(homeFragment == null ? homeFragment = new HomeFragment() : homeFragment);
+        }else{
+            replaceFragment(noConnectionFragment == null ? noConnectionFragment = new NoConnectionFragment() : noConnectionFragment);
+        }
     }
 
     private void replaceFragment(Fragment fragment){
@@ -83,5 +119,76 @@ public class MainActivity extends AppCompatActivity {
     private void init(){
         fragmentContainerView = findViewById(R.id.fragmentContainerView);
         bottomNavigationView = findViewById(R.id.bottomNavBar);
+    }
+
+    private void showUnAvailableDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Network Status");
+        builder.setMessage("Connection is not available, would you to proceed with your Favourites?");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                replaceFragment(favourateFragment == null ? favourateFragment = new FavourateFragment() : favourateFragment);
+                bottomNavigationView.setSelectedItemId(R.id.navigation_favorite);
+            }
+        });
+
+        // Set negative button
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void checkConnection1(){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(MainActivity.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+
+        NetworkRequest networkRequest = new NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .build();
+
+        connectivityManager.registerNetworkCallback(networkRequest, new ConnectivityManager.NetworkCallback() {
+            @Override
+            public void onAvailable(Network network) {
+                System.out.println("Available");
+                if(isLost > 0) {
+                    Toast.makeText(MainActivity.this, "Connection restored", Toast.LENGTH_SHORT).show();
+                    isLost = 0;
+                }
+                networkState = true;
+            }
+
+            @Override
+            public void onUnavailable() {
+                networkState = false;
+                System.out.println("UnAvailable");
+                showUnAvailableDialog();
+            }
+
+            @Override
+            public void onLost(Network network) {
+                System.out.println("Lost");
+                Toast.makeText(MainActivity.this, "Connection is Lost", Toast.LENGTH_SHORT).show();
+                isLost++;
+            }
+        });
+    }
+
+    private boolean checkConnection(){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(MainActivity.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if(activeNetworkInfo == null)
+            return false;
+
+        return activeNetworkInfo.isConnected();
     }
 }

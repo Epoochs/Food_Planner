@@ -95,6 +95,7 @@ public class CategoryActivity extends AppCompatActivity implements CatView, OnFa
     @Override
     public void onFavClick(Meals meals, boolean btnBtnState) {
         if (meals != null) {
+            meals.setIsFavourate(true);
             catPresenter.addMeal(meals);
         }
     }
@@ -102,6 +103,7 @@ public class CategoryActivity extends AppCompatActivity implements CatView, OnFa
     @Override
     public void onUnFavClick(Meals meals) {
         if (meals != null) {
+            meals.setIsFavourate(false);
             catPresenter.removeMeal(meals);
         }
     }

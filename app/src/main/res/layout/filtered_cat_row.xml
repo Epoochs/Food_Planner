@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/DetailedIngredCardView"
+    android:id="@+id/DetailedMealCalCardView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="5dp"
@@ -20,7 +20,7 @@
         android:background="@color/material_dynamic_neutral99">
 
         <ImageView
-            android:id="@+id/imgDetailedIngredMeal"
+            android:id="@+id/imgDetailedPlannerMeal"
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:contentDescription="@string/todo"
@@ -30,7 +30,7 @@
             app:srcCompat="@drawable/ic_launcher_background" />
 
         <TextView
-            android:id="@+id/tvDetailedIngredName"
+            android:id="@+id/tvDetailedPlannerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -46,11 +46,11 @@
             app:layout_constraintBottom_toBottomOf="@+id/constDetailedCat"
             app:layout_constraintEnd_toEndOf="@+id/constDetailedCat"
             app:layout_constraintStart_toStartOf="@+id/constDetailedCat"
-            app:layout_constraintTop_toBottomOf="@+id/imgDetailedIngredMeal"
+            app:layout_constraintTop_toBottomOf="@+id/imgDetailedPlannerMeal"
             app:layout_constraintVertical_bias="0.0" />
 
         <ImageButton
-            android:id="@+id/imgBtnFavDetailedIngred"
+            android:id="@+id/imgBtnCalMeal"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"

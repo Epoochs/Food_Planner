@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 
 import com.example.foodplanner.Model.Categories;
 import com.example.foodplanner.Model.Meals;
+import com.example.foodplanner.Model.Relation.MealAndDayCrossRef;
 import com.example.foodplanner.Model.Repository;
 import com.example.foodplanner.Networking.Client;
 import com.example.foodplanner.Networking.NetworkCallback;
@@ -148,5 +149,9 @@ public class HomePresenter implements NetworkCallback {
     public void getAllCount(){
         client = Client.getInstance();
         client.makeNetworkCallbackByCountry(this);
+    }
+
+    public void addMealWithDay(MealAndDayCrossRef mealAndDayCrossRef){
+        repository.addMealDay(mealAndDayCrossRef);
     }
 }

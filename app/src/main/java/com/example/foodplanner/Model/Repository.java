@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.foodplanner.DB.MealDAO;
 import com.example.foodplanner.DB.MealsDatabase;
+import com.example.foodplanner.Model.Relation.MealAndDayCrossRef;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class Repository {
     private static Repository repository = null;
     private LiveData<List<Meals>> mealsList;
     MealDAO mealDAO;
+    long idmeal;
 
     private Repository(Context context){
         MealsDatabase mealsDatabase = MealsDatabase.getInstance(context.getApplicationContext());
@@ -45,6 +47,22 @@ public class Repository {
             public void run(){
                 mealDAO.deleteMeal(meal);
                 //productsList.remove(product);
+            }
+        }.start();
+    }
+
+    public void addMealDay(MealAndDayCrossRef mealAndDayCrossRef) {
+        new Thread() {
+            public void run() {
+                mealDAO.insertMealDay(mealAndDayCrossRef);
+            }
+        }.start();
+    }
+
+    public void addDay(Day day){
+        new Thread(){
+            public void run(){
+                idmeal = mealDAO.insertDay(day);
             }
         }.start();
     }

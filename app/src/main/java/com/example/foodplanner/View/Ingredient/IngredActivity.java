@@ -94,11 +94,17 @@ public class IngredActivity extends AppCompatActivity implements IngredView, OnF
 
     @Override
     public void onFavClick(Meals meals, boolean btnBtnState) {
-        ingredPresenter.addMeal(meals);
+        if(meals != null) {
+            meals.setIsFavourate(true);
+            ingredPresenter.addMeal(meals);
+        }
     }
 
     @Override
     public void onUnFavClick(Meals meals) {
-        ingredPresenter.removeMeal(meals);
+        if(meals != null) {
+            meals.setIsFavourate(false);
+            ingredPresenter.removeMeal(meals);
+        }
     }
 }

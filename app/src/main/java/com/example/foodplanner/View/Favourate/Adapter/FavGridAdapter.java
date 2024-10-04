@@ -94,9 +94,9 @@ public class FavGridAdapter extends RecyclerView.Adapter<FavGridAdapter.ViewHold
             super(convertView);
             this.convertView = convertView;
 
-            imageView = convertView.findViewById(R.id.imgDetailedIngredMeal);
-            textView = convertView.findViewById(R.id.tvDetailedIngredName);
-            imageButton = convertView.findViewById(R.id.imgBtnFavDetailedIngred);
+            imageView = convertView.findViewById(R.id.imgDetailedPlannerMeal);
+            textView = convertView.findViewById(R.id.tvDetailedPlannerName);
+            imageButton = convertView.findViewById(R.id.imgBtnCalMeal);
             imageButton.setSelected(false);
         }
 

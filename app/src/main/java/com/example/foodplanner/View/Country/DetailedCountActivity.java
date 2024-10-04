@@ -65,11 +65,17 @@ public class DetailedCountActivity extends AppCompatActivity implements CountVie
     @Override
     public void onFavClick(Meals meals, boolean btnBtnState) {
         btnSave = btnBtnState;
-        countPresenter.addMeal(meals);
+        if(meals != null) {
+            meals.setIsFavourate(true);
+            countPresenter.addMeal(meals);
+        }
     }
 
     @Override
     public void onUnFavClick(Meals meals) {
-        countPresenter.removeMeal(meals);
+        if(meals != null) {
+            meals.setIsFavourate(false);
+            countPresenter.removeMeal(meals);
+        }
     }
 }

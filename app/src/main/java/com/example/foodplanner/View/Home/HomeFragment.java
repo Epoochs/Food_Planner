@@ -151,12 +151,18 @@ public class HomeFragment extends Fragment implements HomeView, OnFavClickListen
 
     @Override
     public void onFavClick(Meals meals, boolean btnFavState) {
-        homePresenter.addMeal(meals);
+        if(meals != null) {
+            meals.setIsFavourate(true);
+            homePresenter.addMeal(meals);
+        }
         this.btnFavState = btnFavState;
     }
 
     @Override
     public void onUnFavClick(Meals meals){
-        homePresenter.removeMeal(meals);
+        if(meals != null) {
+            meals.setIsFavourate(false);
+            homePresenter.removeMeal(meals);
+        }
     }
 }

@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/DetailedIngredCardView"
+    android:id="@+id/DetailedMealCalCardView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="5dp"
@@ -14,13 +14,13 @@
     app:layout_constraintTop_toTopOf="parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constFav"
+        android:id="@+id/constPlanner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/material_dynamic_neutral99">
 
         <ImageView
-            android:id="@+id/imgDetailedIngredMeal"
+            android:id="@+id/imgDetailedPlannerMeal"
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:layout_marginStart="5dp"
@@ -32,7 +32,7 @@
             app:srcCompat="@drawable/ic_launcher_background" />
 
         <TextView
-            android:id="@+id/tvDetailedIngredName"
+            android:id="@+id/tvDetailedPlannerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -45,13 +45,13 @@
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/constFav"
+            app:layout_constraintBottom_toBottomOf="@+id/constPlanner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgDetailedIngredMeal" />
+            app:layout_constraintTop_toBottomOf="@+id/imgDetailedPlannerMeal" />
 
         <ImageButton
-            android:id="@+id/imgBtnFavDetailedIngred"
+            android:id="@+id/imgBtnCalMeal"
             android:layout_width="66dp"
             android:layout_height="68dp"
             android:layout_marginTop="20dp"

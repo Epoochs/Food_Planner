@@ -53,12 +53,18 @@ public class FilteredCategoryActivity extends AppCompatActivity implements Detai
 
     @Override
     public void onFavClick(Meals meals, boolean btnBtnState) {
-        detailsPresenter.insertMeal(meals);
+        if(meals != null) {
+            meals.setIsFavourate(true);
+            detailsPresenter.insertMeal(meals);
+        }
     }
 
     @Override
     public void onUnFavClick(Meals meals) {
-        detailsPresenter.removeMeal(meals);
+        if(meals != null) {
+            meals.setIsFavourate(false);
+            detailsPresenter.removeMeal(meals);
+        }
     }
 
     @Override

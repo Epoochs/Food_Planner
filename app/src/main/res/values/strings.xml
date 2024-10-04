@@ -26,4 +26,6 @@
     <string name="favorite">Favorite</string>
     <string name="home">Home</string>
     <string name="CountDetailMealName">CountDetailMealName</string>
+    <string name="No_Internet">No Internet</string>
+    <string name="Retry">Retry</string>
 </resources>
