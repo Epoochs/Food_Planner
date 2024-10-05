@@ -70,4 +70,6 @@ dependencies {
     // optional - Paging 3 Integration
     implementation("androidx.room:room-paging:$room_version")
     implementation ("com.google.android.material:material:1.4.0")
+    val lottieVersion = "3.4.0"
+    implementation ("com.airbnb.android:lottie:$lottieVersion")
 }

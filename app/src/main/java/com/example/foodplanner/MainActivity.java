@@ -19,7 +19,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
+import com.example.foodplanner.Networking.ConnectivityRepository;
 import com.example.foodplanner.View.Favourate.FavourateFragment;
 import com.example.foodplanner.View.Home.HomeFragment;
 import com.example.foodplanner.View.Planner.PlannerFragment;
@@ -38,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     FragmentContainerView fragmentContainerView;
     boolean networkState = false;
-    int isLost = 0;
+    ConnectivityRepository connectivityRepository;
+    int count = 0;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -56,6 +60,23 @@ public class MainActivity extends AppCompatActivity {
 
         /* Init my UI components */
         init();
+        connectivityRepository = new ConnectivityRepository(getApplicationContext());
+        connectivityRepository.getIsConnected().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean){
+                    Toast.makeText(MainActivity.this, "Network is available", Toast.LENGTH_SHORT).show();
+                    networkState = true;
+                    if(count < 1){
+                        showUnAvailableDialog();
+                    }
+                    count++;
+                }else{
+                    Toast.makeText(MainActivity.this, "No network available", Toast.LENGTH_SHORT).show();
+                    networkState = false;
+                }
+            }
+        });
 
         /* BottomBar Navigation Handler through Fragments */
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -88,13 +109,12 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        if(checkConnection()){
+       /* if(checkConnection()){
             networkState = true;
         }else{
             Toast.makeText(MainActivity.this, "Connection is Lost", Toast.LENGTH_SHORT).show();
             networkState = false;
-            showUnAvailableDialog();
-        }
+        }*/
 
         if(networkState){
             replaceFragment(homeFragment == null ? homeFragment = new HomeFragment() : homeFragment);
@@ -147,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void checkConnection1(){
+   /* private void checkConnection1(){
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(MainActivity.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 
@@ -180,9 +200,9 @@ public class MainActivity extends AppCompatActivity {
                 isLost++;
             }
         });
-    }
+    }*/
 
-    private boolean checkConnection(){
+   /* private boolean checkConnection(){
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(MainActivity.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 
@@ -190,5 +210,5 @@ public class MainActivity extends AppCompatActivity {
             return false;
 
         return activeNetworkInfo.isConnected();
-    }
+    }*/
 }
