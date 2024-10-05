@@ -60,23 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
         /* Init my UI components */
         init();
-        connectivityRepository = new ConnectivityRepository(getApplicationContext());
-        connectivityRepository.getIsConnected().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if(aBoolean){
-                    Toast.makeText(MainActivity.this, "Network is available", Toast.LENGTH_SHORT).show();
-                    networkState = true;
-                    if(count < 1){
-                        showUnAvailableDialog();
-                    }
-                    count++;
-                }else{
-                    Toast.makeText(MainActivity.this, "No network available", Toast.LENGTH_SHORT).show();
-                    networkState = false;
-                }
-            }
-        });
 
         /* BottomBar Navigation Handler through Fragments */
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -115,6 +98,23 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Connection is Lost", Toast.LENGTH_SHORT).show();
             networkState = false;
         }*/
+        connectivityRepository = new ConnectivityRepository(getApplicationContext());
+        connectivityRepository.getIsConnected().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean){
+                    Toast.makeText(MainActivity.this, "Network is available", Toast.LENGTH_SHORT).show();
+                    networkState = true;
+                    if(count < 1){
+                        showUnAvailableDialog();
+                    }
+                    count++;
+                }else{
+                    Toast.makeText(MainActivity.this, "No network available", Toast.LENGTH_SHORT).show();
+                    networkState = false;
+                }
+            }
+        });
 
         if(networkState){
             replaceFragment(homeFragment == null ? homeFragment = new HomeFragment() : homeFragment);

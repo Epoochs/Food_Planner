@@ -156,9 +156,14 @@ public class DetailedHomeActivity extends AppCompatActivity implements DetailedV
         tvMealCount.setText(meals.getStrArea());
         myIngredAdapter.setMeal(meal);
 
+        String videoUrl = meals.getStrYoutube();
+        String[] videoEmbed = videoUrl.split("v=");
+        System.out.println(videoEmbed[1]);
+        String embedUrl = "https://www.youtube.com/embed/" + videoEmbed[1];
+
         String html = "<html><body>" +
                 "<iframe width=\"100%\" height=\"100%\" " +
-                "src=\"" + meals.getStrYoutube() + "\" " +
+                "src=\"" + embedUrl + "\" " +
                 "frameborder=\"0\" allowfullscreen></iframe>" +
                 "</body></html>";
 
