@@ -55,6 +55,8 @@ public class CountGridAdapter extends RecyclerView.Adapter<CountGridAdapter.View
 
                 String area = mealsArrayList.get(position).getStrArea();
 
+                System.out.println(flags.get(area));
+
                 holder.textView.setText(area);
         Glide.with(this.context)
                 .load(flags.get(area))

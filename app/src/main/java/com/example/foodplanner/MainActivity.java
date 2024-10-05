@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(MainActivity.this, "No network available", Toast.LENGTH_SHORT).show();
                     networkState = false;
+                    showUnAvailableDialog();
                 }
             }
         });
