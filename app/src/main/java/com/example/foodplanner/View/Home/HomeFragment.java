@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.foodplanner.Model.Categories;
+import com.example.foodplanner.Model.CountryCode;
 import com.example.foodplanner.Model.Meals;
 import com.example.foodplanner.Presenter.Home.HomePresenter;
 import com.example.foodplanner.Presenter.Home.HomeView;
@@ -24,7 +25,9 @@ import com.example.foodplanner.View.Home.Adapters.OnFavClickListener;
 import com.example.foodplanner.View.Ingredient.Adapter.MyIngredAdapterSearch;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class HomeFragment extends Fragment implements HomeView, OnFavClickListener {
@@ -54,6 +57,7 @@ public class HomeFragment extends Fragment implements HomeView, OnFavClickListen
     LinearLayoutManager countlinearLayoutManager;
 
     boolean btnFavState;
+    Map<String, Integer> flags;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,7 +71,7 @@ public class HomeFragment extends Fragment implements HomeView, OnFavClickListen
         super.onViewCreated(view, savedInstanceState);
 
         /* Getting the state of FavButton */
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             btnFavState = savedInstanceState.getBoolean("favState");
         }
 
@@ -85,27 +89,28 @@ public class HomeFragment extends Fragment implements HomeView, OnFavClickListen
         CatlinearLayoutManager = new LinearLayoutManager(requireContext());
         CatlinearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerViewMealCat.setLayoutManager(CatlinearLayoutManager);
-        catGridAdapter = new CatGridAdapter(requireContext(),new ArrayList<Categories>());
+        catGridAdapter = new CatGridAdapter(requireContext(), new ArrayList<Categories>());
         recyclerViewMealCat.setAdapter(catGridAdapter);
 
         /* Recycle preparation of Meal Ingredients */
         ingredlinearLayoutManager = new LinearLayoutManager(requireContext());
         ingredlinearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerViewMealIngred.setLayoutManager(ingredlinearLayoutManager);
-        myIngredAdapter = new MyIngredAdapterSearch(requireContext(),new ArrayList<>());
+        myIngredAdapter = new MyIngredAdapterSearch(requireContext(), new ArrayList<>());
         recyclerViewMealIngred.setAdapter(myIngredAdapter);
 
         /* Recycle preparation of Meal Country */
         countlinearLayoutManager = new LinearLayoutManager(requireContext());
         countlinearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerViewCount.setLayoutManager(countlinearLayoutManager);
-        countGridAdapter = new CountGridAdapter(requireContext(),new ArrayList<>());
+        countGridAdapter = new CountGridAdapter(requireContext(), new ArrayList<>());
         recyclerViewCount.setAdapter(countGridAdapter);
 
         /* Init a Presenter that would be the middleman between View and Model
-        * We made it only one instance so that we can keep the last picked-up random meal through
-        * the Application */
-       homePresenter = HomePresenter.getHomeInstance(requireContext(),this);;
+         * We made it only one instance so that we can keep the last picked-up random meal through
+         * the Application */
+        homePresenter = HomePresenter.getHomeInstance(requireContext(), this);
+        ;
     }
 
     @Override
@@ -120,7 +125,7 @@ public class HomeFragment extends Fragment implements HomeView, OnFavClickListen
         outState.putBoolean("favState", btnFavState);
     }
 
-    private void init(){
+    private void init() {
         if (view != null) {
             recyclerViewMealInsp = view.findViewById(R.id.MealInspirationRecycleView);
             recyclerViewMealCat = view.findViewById(R.id.recyclerViewMealByCat);
@@ -147,6 +152,11 @@ public class HomeFragment extends Fragment implements HomeView, OnFavClickListen
     @Override
     public void showDataMealCount(List<Meals> meals) {
         countGridAdapter.setMealsList(meals);
+    }
+
+    @Override
+    public void showFlag(Map<String, Integer> flag) {
+        countGridAdapter.setFlags(flag);
     }
 
     @Override

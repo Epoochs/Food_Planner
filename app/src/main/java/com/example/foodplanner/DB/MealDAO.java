@@ -22,7 +22,7 @@ public interface MealDAO {
     //This to get the favourate meals
     LiveData<List<Meals>> getAllMeals();
 
-    @Query("SELECT * FROM meal WHERE isFavourate = 0")
+    @Query("SELECT * FROM meal WHERE isPlanned = 1")
     LiveData<List<Meals>> getAllPlanned00Meals();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

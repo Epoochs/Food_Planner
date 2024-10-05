@@ -5,6 +5,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.example.foodplanner.Model.Categories;
+import com.example.foodplanner.Model.CountryCode;
 import com.example.foodplanner.Model.Meals;
 import com.example.foodplanner.Model.Repository;
 import com.example.foodplanner.Networking.Client;
@@ -69,6 +70,11 @@ public class IngredPresenter implements NetworkCallback {
 
     @Override
     public void onSuccessResultFilterCount(List<Meals> mealsList) {
+
+    }
+
+    @Override
+    public void onSuccessResultFlags(CountryCode countryCode) {
 
     }
 

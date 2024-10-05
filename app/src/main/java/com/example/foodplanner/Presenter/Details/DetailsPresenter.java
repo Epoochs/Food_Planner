@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 
 import com.example.foodplanner.Model.Categories;
+import com.example.foodplanner.Model.CountryCode;
 import com.example.foodplanner.Model.Day;
 import com.example.foodplanner.Model.Meals;
 import com.example.foodplanner.Model.Relation.MealAndDayCrossRef;
@@ -72,6 +73,11 @@ public class DetailsPresenter implements NetworkCallback {
 
     @Override
     public void onSuccessResultFilterCount(List<Meals> mealsList) {
+
+    }
+
+    @Override
+    public void onSuccessResultFlags(CountryCode countryCode) {
 
     }
 

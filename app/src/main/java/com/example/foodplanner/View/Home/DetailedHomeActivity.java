@@ -109,7 +109,7 @@ public class DetailedHomeActivity extends AppCompatActivity implements DetailedV
                             dayMeal.setDay(selectedDate);
                             detailsPresenter.insertDay(dayMeal);
                             System.out.println("On Date set: " + dayMeal.getDay());
-                            //meal.setIsFavourate(false);
+                            meal.setPlanned(true);
                             detailsPresenter.insertMeal(meal);
                             detailsPresenter.addMealDay(meal,dayMeal);
                         }

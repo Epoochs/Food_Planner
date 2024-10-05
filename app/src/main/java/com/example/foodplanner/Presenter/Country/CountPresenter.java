@@ -5,9 +5,11 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.example.foodplanner.Model.Categories;
+import com.example.foodplanner.Model.CountryCode;
 import com.example.foodplanner.Model.Meals;
 import com.example.foodplanner.Model.Repository;
 import com.example.foodplanner.Networking.Client;
+import com.example.foodplanner.Networking.FlagClient;
 import com.example.foodplanner.Networking.NetworkCallback;
 
 import java.util.List;
@@ -16,6 +18,7 @@ public class CountPresenter implements NetworkCallback {
     CountView countView;
     Context context;
     Client client;
+    FlagClient flagClient;
     Repository repository;
 
     public CountPresenter(Context context, CountView countView){
@@ -65,6 +68,11 @@ public class CountPresenter implements NetworkCallback {
     }
 
     @Override
+    public void onSuccessResultFlags(CountryCode countryCode){
+        countView.showFlag(countryCode);
+    }
+
+    @Override
     public void onFalureResult(String str) {
         /* Showing an alert Message as an Indication of Connection Problem */
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -94,5 +102,10 @@ public class CountPresenter implements NetworkCallback {
 
     public void removeMeal(Meals meals){
         repository.removeProduct(meals);
+    }
+
+    public void getFlags(){
+        flagClient = FlagClient.getInstance();
+        flagClient.makeNetworkCallbackFlag(this);
     }
 }

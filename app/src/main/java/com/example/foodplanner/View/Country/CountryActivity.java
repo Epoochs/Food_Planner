@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodplanner.Model.CountryCode;
 import com.example.foodplanner.Model.Meals;
 import com.example.foodplanner.Presenter.Country.CountPresenter;
 import com.example.foodplanner.Presenter.Country.CountView;
@@ -88,6 +89,11 @@ public class CountryActivity extends AppCompatActivity implements CountView {
     @Override
     public void showDataCountFilterd(List<Meals> meals) {
         this.mealsList = meals;
+
+    }
+
+    @Override
+    public void showFlag(CountryCode countryCode) {
 
     }
 

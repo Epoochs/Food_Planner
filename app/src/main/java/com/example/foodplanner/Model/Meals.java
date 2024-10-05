@@ -20,6 +20,7 @@ public class Meals{
     private String strYoutube;
 
     private boolean isFavourate = false;
+    private boolean isPlanned = false;
 
     /* Ingredients */
     private String strIngredient;
@@ -93,6 +94,11 @@ public class Meals{
 
     public Meals(){}
     /* Getters */
+
+    public boolean getIsPlanned() {
+        return isPlanned;
+    }
+
     public boolean getIsFavourate(){
         return isFavourate;
     }
@@ -231,7 +237,7 @@ public class Meals{
 
     public List<String> getIngredients() {
         List<String> ingredients = new ArrayList<>();
-        // Add each ingredient to the list if it's not null or empty
+
         if (strIngredient1 != null && !strIngredient1.isEmpty()) ingredients.add(strIngredient1);
         if (strIngredient2 != null && !strIngredient2.isEmpty()) ingredients.add(strIngredient2);
         if (strIngredient3 != null && !strIngredient3.isEmpty()) ingredients.add(strIngredient3);
@@ -328,6 +334,11 @@ public class Meals{
     }
 
     /* Setters */
+
+    public void setPlanned(boolean planned) {
+        isPlanned = planned;
+    }
+
     public void setIsFavourate(boolean isFavourate){
         this.isFavourate = isFavourate;
     }
@@ -561,5 +572,4 @@ public class Meals{
         if (strMeasure20 != null && !strMeasure20.isEmpty()) measurements.add(strMeasure20);
         return measurements;
     }
-
 }
